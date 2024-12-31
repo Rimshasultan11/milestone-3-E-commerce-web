@@ -7,7 +7,7 @@ interface Product {
   id: number;
   name: string;
   description: string;
-  price:number; 
+  price: number;
   image: string;
 }
 
@@ -20,7 +20,9 @@ const Page = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/products");
+        const response = await fetch(
+          `/api/products`
+        );
         const data: Product[] = await response.json();
         const foundProduct = data.find((item) => item.id === Number(params.id));
         setProduct(foundProduct || null);
@@ -99,7 +101,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   if (!product) {
     return (
       <div className="text-center mt-20">
-        <h1 className="text-3xl text-red-500">Product not found</h1>
+        <h1 className="text-3xl text-red-500">Product Not found</h1>
         <Link href="/">
           <p className="text-blue-500 underline mt-4">Go back to Home</p>
         </Link>
@@ -107,7 +109,6 @@ const Page = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  // Find the quantity of the current product in the cart
   const currentProductInCart = cart.find((item) => item.item.id === product.id);
   const currentQuantity = currentProductInCart?.quantity || 0;
 
@@ -134,30 +135,30 @@ const Page = ({ params }: { params: { id: string } }) => {
               Price: PKR {product.price}
             </h3>
             <div className="flex flex-col md:flex-row gap-4 mt-4 items-center">
-            <div className=" bg-[#6b7a15] flex  rounded-lg text-xl gap-4 w-[250px]  px-8 h-[50px]  border-2 justify-center items-center text-white">
-            <p>Quantity:</p>
-            <button
-                onClick={() => decrementQuantity(product.id)}
-                className="px-3 py-1 border-2 border-white   rounded"
-              >
-                -
-              </button>
-              <span>{currentQuantity}</span>
-              <button
-                onClick={() => incrementQuantity(product.id)}
-                className="px-3 py-1 border-2 border-white rounded"
-              >
-                +
-              </button>
-                </div>
+              <div className=" bg-[#6b7a15] flex  rounded-lg text-xl gap-4 w-[250px]  px-8 h-[50px]  border-2 justify-center items-center text-white">
+                <p>Quantity:</p>
+                <button
+                  onClick={() => decrementQuantity(product.id)}
+                  className="px-3 py-1 border-2 border-white   rounded"
+                >
+                  -
+                </button>
+                <span>{currentQuantity}</span>
+                <button
+                  onClick={() => incrementQuantity(product.id)}
+                  className="px-3 py-1 border-2 border-white rounded"
+                >
+                  +
+                </button>
+              </div>
               <button
                 className="bg-[#6b7a15] text-white py-2 px-4 rounded"
                 onClick={() => addToCart(product)}
               >
                 Add to Cart
               </button>
-              </div>
-            
+            </div>
+
           </div>
         </div>
       </div>
@@ -210,18 +211,13 @@ const Page = ({ params }: { params: { id: string } }) => {
             <h2 className="text-2xl font-bold text-green-600">
               Order Successful!
             </h2>
-            <p className="mt-4 text-gray-600">Thank you for your purchase.</p>
-            <button
+            <p className="mt-4 text-gray-600
+            ">Thank you for shopping with us.</p> <button
               onClick={() => setCheckoutSuccessful(false)}
-              className="mt-4 px-4 py-2 bg-[#6b7a15] text-white rounded"
-            >
-              Close
-            </button>
-          </div>
-        </div>
+              className="mt-4 px-6 py-2 bg-[#6b7a15] text-white rounded"> Close
+            </button> </div> </div>
       )}
     </div>
   );
-};
-
+}
 export default Page;

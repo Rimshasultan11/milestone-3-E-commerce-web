@@ -10,15 +10,12 @@ import Newpro from "./components/Home/Newpro";
 export default function Home() {
   return (
     <div>
-   
     <Hero/>
     <Products/>
     <TopProduct/>
     <Banner/>
     <Subscribe/>
     <Newpro/>
-   
-    
     </div>
   
   );
