@@ -1,301 +1,227 @@
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
 
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image';
-import Additems from '../Home/Additems';
-import { useState } from 'react';
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price:number; 
+  image: string;
+}
 
-const allProducts = [
+const Page = ({ params }: { params: { id: string } }) => {
+  const [product, setProduct] = useState<Product | null>(null);
+  const [cart, setCart] = useState<{ item: Product; quantity: number }[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [isCheckoutSuccessful, setCheckoutSuccessful] = useState(false);
 
-    {
-        id: "1",
-        name: " Cotton Printed 2 Piece Suit",
-        description: " Stylish and comfortable  cotton printed",
-        price: "PKR 2000",
-        image: "/g1.jpg",
-    },
-    {
-        id: "2",
-        name: "Cotton Printed 2 Piece Suit ",
-        description: " Stylish and comfortable  cotton printed Elevate your style with this elegant women's kurti, crafted for comfort and sophistication. Made from high-quality, breathable fabric, it features a flattering fit, intricate embroidery, and a modern yet traditional design..",
-        price: "PKR 2000",
-        image: "/g2.jpg",
-    },
-    {
-        id: "3",
-        name: " Cotton Printed 2 Piece Suit",
-        description: " Stylish and comfortable  cotton printed Elevate your style with this elegant women's kurti, crafted for comfort and sophistication. Made from high-quality, breathable fabric, it features a flattering fit, intricate embroidery, and a modern yet traditional design..",
-        price: "PKR 2000",
-        image: "/g4.jpg",
-    },
-    {
-        id: "4",
-        name: "Cotton Printed 2 Piece Suit ",
-        description: " Stylish and comfortable  cotton printed Elevate your style with this elegant women's kurti, crafted for comfort and sophistication. Made from high-quality, breathable fabric, it features a flattering fit, intricate embroidery, and a modern yet traditional design..",
-        price: "PKR 2000",
-        image: "/g5.jpg",
-    },
-    {
-        id: "5",
-        name: "Womens Kurti ",
-        description: " Stylish and comfortable  cotton printed Elevate your style with this elegant women's kurti, crafted for comfort and sophistication. Made from high-quality, breathable fabric, it features a flattering fit, intricate embroidery, and a modern yet traditional design..",
-        price: "PKR 1500",
-        image: "/g6.jpg"
-    },
-    {
-        id: "6",
-        name: "Womens Kurti ",
-        description: " Stylish and comfortable  cotton printed Elevate your style with this elegant women's kurti, crafted for comfort and sophistication. Made from high-quality, breathable fabric, it features a flattering fit, intricate embroidery, and a modern yet traditional design..",
-        price: "PKR 1500",
-        image: "/g7.jpg"
-    },
-    {
-        id: "7",
-        name: "Womens Kurti ",
-        description: " Stylish and comfortable  cotton printed Elevate your style with this elegant women's kurti, crafted for comfort and sophistication. Made from high-quality, breathable fabric, it features a flattering fit, intricate embroidery, and a modern yet traditional design..",
-        price: "PKR 1500",
-        image: "/g8.jpg"
-    },
-    {
-        id: "8",
-        name: "Womens Kurti ",
-        description: " Stylish and comfortable  cotton printed Elevate your style with this elegant women's kurti, crafted for comfort and sophistication. Made from high-quality, breathable fabric, it features a flattering fit, intricate embroidery, and a modern yet traditional design..",
-        price: "PKR 1500",
-        image: "/g9.jpg"
-    },
-    {
-        id: "9",
-        name: "Mens Kurta ",
-        description: " This stylish men's kurta blends tradition with modern elegance. Made from premium quality cotton its lightweight, comfortable and perfect for any occasion—be it festivals, weddings, or casual wear. Featuring a sleek design with subtle embroidery full sleeves and a band collar it's a must-have for a timeless look.",
-        price: "PKR 2000",
-        image: "/b9.jpg",
-    },
-    {
-        id: "10",
-        name: "Men's Stylish Kurta",
-        description: " This stylish men's kurta blends tradition with modern elegance. Made from premium quality cotton its lightweight, comfortable and perfect for any occasion—be it festivals, weddings, or casual wear. Featuring a sleek design with subtle embroidery full sleeves and a band collar it's a must-have for a timeless look.",
-        price: "PKR 3000",
-        image: "/b2.jpg",
-    },
-    {
-        id: "11",
-        name: "Men's Kurta",
-        description: " This stylish men's kurta blends tradition with modern elegance. Made from premium quality cotton its lightweight, comfortable and perfect for any occasion—be it festivals, weddings, or casual wear. Featuring a sleek design with subtle embroidery full sleeves and a band collar it's a must-have for a timeless look.",
-        price: "PKR 2500",
-        image: "/b4.jpg",
-    },
-    {
-        id: "12",
-        name: "Men's Stylish Kurta",
-        description: " This stylish men's kurta blends tradition with modern elegance. Made from premium quality cotton its lightweight, comfortable and perfect for any occasion—be it festivals, weddings, or casual wear. Featuring a sleek design with subtle embroidery full sleeves and a band collar it's a must-have for a timeless look.",
-        price: "PKR 3500",
-        image: "/b6.jpg",
-    },
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/products");
+        const data: Product[] = await response.json();
+        const foundProduct = data.find((item) => item.id === Number(params.id));
+        setProduct(foundProduct || null);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
 
-    {
-        id: "13",
-        name: "Men's T-Shirt",
-        description: "Upgrade your casual wardrobe with this versatile mens t-shirt. Made from premium, breathable fabric it ensures all-day comfort and a perfect fit. Featuring a classic crew neck and short sleeves its ideal for casual outings workouts or lounging. Available in a range of trendy colors, its a go-to essential for effortless style.",
-        price: "PKR 1500",
-        image: "/T1.jpg",
-    },
-    {
-        id: "14",
-        name: "Men's T-Shirt",
-        description: "Upgrade your casual wardrobe with this versatile mens t-shirt. Made from premium, breathable fabric it ensures all-day comfort and a perfect fit. Featuring a classic crew neck and short sleeves its ideal for casual outings workouts or lounging. Available in a range of trendy colors, its a go-to essential for effortless style.",
-        price: "PKR 1200",
-        image: "/T2.jpg",
-    },
-    {
-        id: "15",
-        name: "Men's Printed T-Shirt",
-        description: "Upgrade your casual wardrobe with this versatile mens t-shirt. Made from premium, breathable fabric it ensures all-day comfort and a perfect fit. Featuring a classic crew neck and short sleeves its ideal for casual outings workouts or lounging. Available in a range of trendy colors, its a go-to essential for effortless style.",
-        price: "PKR 1500",
-        image: "/T4.jpg",
-    },
-    {
-        id: "16",
-        name: "Men's T-Shirt",
-        description: "Upgrade your casual wardrobe with this versatile mens t-shirt. Made from premium, breathable fabric it ensures all-day comfort and a perfect fit. Featuring a classic crew neck and short sleeves its ideal for casual outings workouts or lounging. Available in a range of trendy colors, its a go-to essential for effortless style.",
-        price: "PKR 1200",
-        image: "/T3.jpg",
-    },
-    {
-        id: "17",
-        name: " Kid's Boys 2 piece Suit",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys1.jpg",
-    },
-    {
-        id: "18",
-        name: " Kid's Boys 2 piece Suit",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys2.jpg",
-    },
-    {
-        id: "19",
-        name: " Kid's Boys 2 piece Suit",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys3.jpg",
-    },
-    {
-        id: "20",
-        name: " Kid's Boys 2 piece Suit",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys4.jpg",
-    },
-    {
-        id: "21",
-        name: " Kid's Boys Kurta",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys5.jpg",
-    },
-    {
-        id: "22",
-        name: " Kid's Boys Kurta ",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys6.jpg",
-    },
-    {
-        id: "23",
-        name: " Kid's Boys Kurta",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys7.jpg",
-    },
-    {
-        id: "24",
-        name: " Kid's Boys Kurta",
-        description: " Dress your little ones in style with this adorable 2-piece suit, designed for both comfort and charm. Made from soft, skin-friendly fabric, this outfit includes a trendy top and matching bottom, perfect for everyday wear or special occasions",
-        price: "PKR 2000",
-        image: "/k-boys8.jpg",
-    },
-    {
-        id: "25",
-        name: " Kid's Girls 2 piece Suit",
-        description: " Let your little princess shine in this delightful 2-piece suit, crafted with soft and breathable fabric for ultimate comfort.",
-        price: "PKR 2000",
-        image: "/k-girls.jpg", 
-    },
-    {
-        id:"26",
-        name: "Kid's Girls 2 piece Suit",
-        description: " Let your little princess shine in this delightful 2-piece suit, crafted with soft and breathable fabric for ultimate comfort.",
-        price: "PKR 2000",
-        image: "/k-girls2.jpg", 
-    },
-    {
-        id: "27",
-        name: " Kid's Girls 2 piece Suit",
-        description: "Let your little princess shine in this delightful 2-piece suit, crafted with soft and breathable fabric for ultimate comfort.",
-        price: "PKR 2000",
-        image: "/k-girls3.jpg", 
-    },
-    {
-        id: "28",
-        name: " Kid's Girls 2 piece Suit",
-        description: "Let your little princess shine in this delightful 2-piece suit, crafted with soft and breathable fabric for ultimate comfort.",
-        price: "PKR 2000",
-        image: "/k-girls4.jpg", 
-    },
-    {
-        id: "29",
-        name: " Kid's Girls 2 piece Suit",
-        description: "Let your little princess shine in this delightful 2-piece suit, crafted with soft and breathable fabric for ultimate comfort.",
-        price: "PKR 2000",
-        image: "/k-girls5.jpg", 
-    },
-    {
-        id: "30",
-        name: "Kid's Girls shirt",
-        description: " Stylish and comfortable  pink t-shirt",
-        price: "PKR 2000",
-        image: "/kg3.jpg", 
-    },
-    {
-        id: "31",
-        name: " Kid's Girls shirt",
-        description: "Let your little princess shine in this delightful 2-piece suit, crafted with soft and breathable fabric for ultimate comfort.",
-        price: "PKR 2000",
-        image: "/kids-girl.jpg", 
-    },
-    {
-        id: "32",
-        name: " Kid's Girls shirt",
-        description: "Let your little princess shine in this delightful 2-piece suit, crafted with soft and breathable fabric for ultimate comfort.",
-        price: "PKR 2000",
-        image: "/kids-girls2.jpg", 
-    },
+    fetchProduct();
+  }, [params.id]);
 
+  useEffect(() => {
+    const newTotal = cart.reduce(
+      (sum, cartItem) =>
+        sum + cartItem.item.price * cartItem.quantity,
+      0
+    );
+    setTotal(newTotal);
+  }, [cart]);
 
-];
-
-const page = ({ params }: { params: { id: string } }) => {
-    
-    const { id } = params;
-    const product = allProducts.find((items) => items.id === id);
-
-    if (!product) {
-        return (
-            <div className="text-center mt-20">
-                <h1 className="text-3xl text-red-500">Product not found</h1>
-                <Link href="/">
-                    <p className="text-blue-500 underline mt-4">Go back to Home</p>
-                </Link>
-            </div>
+  const addToCart = (product: Product) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (cartItem) => cartItem.item.id === product.id
+      );
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem.item.id === product.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
         );
+      } else {
+        return [...prevCart, { item: product, quantity: 1 }];
+      }
+    });
+  };
+
+  const incrementQuantity = (productId: number) => {
+    setCart((prevCart) =>
+      prevCart.map((cartItem) =>
+        cartItem.item.id === productId
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      )
+    );
+  };
+
+  const decrementQuantity = (productId: number) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((cartItem) =>
+          cartItem.item.id === productId && cartItem.quantity > 1
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+        .filter((cartItem) => cartItem.quantity > 0)
+    );
+  };
+
+  const removeFromCart = (productId: number) => {
+    setCart((prevCart) =>
+      prevCart.filter((cartItem) => cartItem.item.id !== productId)
+    );
+  };
+
+  const handleCheckout = () => {
+    if (cart.length > 0) {
+      setCheckoutSuccessful(true);
+      setCart([]);
+      setTotal(0);
     } else {
-        return (
-            <div className="w-full bg-lime-200 py-4">
-
-
-
-                {/* Blog Content */}
-                <div className="max-w-5xl mx-auto bg-white rounded-lg p-6 gap-4 my-10 shadow-lg">
-                    {/* Text and Image Section */}
-                    <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-                        {/* Image Section */}
-                        <div className="w-full md:w-1/3 flex justify-center">
-                            <Image
-                                src={product.image}
-                                alt="post imge" width={600} height={400}
-                                className=" w-full max-w-[500px] h-[400px] rounded-lg  object-cover shadow-md"
-                            />
-                        </div>
-                        {/* Text Section */}
-                        <div className="w-full md:w-2/3">
-                            <h2 className="text-lg text-[#6b7a15] md:text-3xl font-bold">{product.name}</h2>
-                            <p className="text-base my-4 text-gray-700"><span>Dscription:-</span><br/>
-                            
-                            {product.description}</p>
-
-                            <div className="leading-8">
-                                <h3 className="text-lg font-semibold text-[#6b7a15]">{product.price}</h3>
-
-                            </div>
-                            <div className='flex flex-col md:flex-row gap-6 mt-4 items-center'>
-                           <Additems/>  
-                           <button   className='bg-[#6b7a15] hover:scale-105 w-[150px] h-[50px]
-                    duration-300 text-white py-1 px-4 rounded-full
-                    group-hover:bg-white group-hover:text-[#6b7a15] my-4
-                    '>Add to Cart </button>
-                    
-                 
-                    </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        );
+      alert("Your cart is empty!");
     }
+  };
+
+  if (!product) {
+    return (
+      <div className="text-center mt-20">
+        <h1 className="text-3xl text-red-500">Product not found</h1>
+        <Link href="/">
+          <p className="text-blue-500 underline mt-4">Go back to Home</p>
+        </Link>
+      </div>
+    );
+  }
+
+  // Find the quantity of the current product in the cart
+  const currentProductInCart = cart.find((item) => item.item.id === product.id);
+  const currentQuantity = currentProductInCart?.quantity || 0;
+
+  return (
+    <div className="w-full bg-[#c9e265] bg-opacity-[0.5] py-4 flex flex-col md:flex-row justify-center items-start gap-4">
+      {/* Product Section */}
+      <div className="max-w-4xl mx-auto bg-white rounded-lg p-6 gap-4 my-10 shadow-lg">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+          <div className="w-full md:w-1/3 flex justify-center">
+            <Image
+              src={product.image}
+              alt="product image"
+              width={600}
+              height={400}
+              className="w-full max-w-[500px] h-[400px] rounded-lg object-cover shadow-md"
+            />
+          </div>
+          <div className="w-full md:w-2/3">
+            <h2 className="text-lg text-[#6b7a15] md:text-3xl font-bold">
+              {product.name}
+            </h2>
+            <p className="text-base my-4 text-gray-700">{product.description}</p>
+            <h3 className="text-lg font-semibold text-[#6b7a15]">
+              Price: PKR {product.price}
+            </h3>
+            <div className="flex flex-col md:flex-row gap-4 mt-4 items-center">
+            <div className=" bg-[#6b7a15] flex  rounded-lg text-xl gap-4 w-[250px]  px-8 h-[50px]  border-2 justify-center items-center text-white">
+            <p>Quantity:</p>
+            <button
+                onClick={() => decrementQuantity(product.id)}
+                className="px-3 py-1 border-2 border-white   rounded"
+              >
+                -
+              </button>
+              <span>{currentQuantity}</span>
+              <button
+                onClick={() => incrementQuantity(product.id)}
+                className="px-3 py-1 border-2 border-white rounded"
+              >
+                +
+              </button>
+                </div>
+              <button
+                className="bg-[#6b7a15] text-white py-2 px-4 rounded"
+                onClick={() => addToCart(product)}
+              >
+                Add to Cart
+              </button>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+
+      {/* Cart Section */}
+      <div className="max-w-7xl mx-auto bg-gray-100 rounded-lg p-6 my-10 shadow-lg">
+        <h2 className="text-2xl font-bold text-[#6b7a15]">Cart Items</h2>
+        {cart.length === 0 ? (
+          <p className="text-gray-600 mt-4">Your cart is empty.</p>
+        ) : (
+          <div className="mt-4">
+            {cart.map((cartItem) => (
+              <div
+                key={cartItem.item.id}
+                className="flex flex-col justify-between gap-6 items-center border-b pb-2"
+              >
+                <div className="flex flex-col items-center gap-4">
+                  <h3 className="font-semibold">{cartItem.item.name}</h3>
+                  <p>
+                    PKR: {cartItem.quantity} x {cartItem.item.price}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => removeFromCart(cartItem.item.id)}
+                    className="px-4 py-2 text-red-500 hover:underline"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+            <h3 className="mt-4 text-right text-xl font-bold text-[#6b7a15]">
+              Total: PKR {total.toFixed(2)}
+            </h3>
+            <button
+              onClick={handleCheckout}
+              className="mt-4 px-6 py-2 bg-[#6b7a15] text-white rounded"
+            >
+              Checkout
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Order Successful Popup */}
+      {isCheckoutSuccessful && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white rounded-lg p-6 shadow-lg text-center">
+            <h2 className="text-2xl font-bold text-green-600">
+              Order Successful!
+            </h2>
+            <p className="mt-4 text-gray-600">Thank you for your purchase.</p>
+            <button
+              onClick={() => setCheckoutSuccessful(false)}
+              className="mt-4 px-4 py-2 bg-[#6b7a15] text-white rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
-export default page
+export default Page;

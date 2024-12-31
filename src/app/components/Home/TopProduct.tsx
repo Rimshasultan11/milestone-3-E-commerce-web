@@ -4,22 +4,23 @@ import p6 from "/public/p6.png"
 import p7 from "/public/p7.png"
 import p8 from "/public/p8.png"
 import Image from 'next/image'
+import Link from 'next/link'
 import { FaStar } from 'react-icons/fa'
 const produtList =[
   {
-    id:1,
+    id:33,
   img:p6,
   title:"Casual Wear",
   description:"  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis sed voluptate inventore illo facere "
   },
   {
-    id:2,
+    id:34,
     img:p7,
     title:"Printed shirt",
     description:"  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis sed voluptate inventore illo facere "
     },
     {
-      id:3,
+      id:35,
       img:p8,
       title:"women Shirt",
       description:"  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis sed voluptate inventore illo facere "
@@ -62,11 +63,11 @@ const TopProduct = () => {
           text-gray-500 group-hover:text-white
           duration-300 text-sm line-clamp-2
           '>{data.description}</p>
-          <button 
+          <Link href={`/components/${data.id}`}><button 
           className='bg-[#6b7a15] hover:scale-105
           duration-300 text-white py-1 px-4 rounded-full
           group-hover:bg-white group-hover:text-[#6b7a15] my-4
-          '>Order Now</button>
+          '>Order Now</button></Link>
           </div>
 </div>
         ))}

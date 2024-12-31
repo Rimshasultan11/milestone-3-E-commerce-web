@@ -11,56 +11,56 @@ const womenProduct= [
         name: " Cotton Printed 2 Piece Suit",
         description: " Stylish and comfortable  cotton printed",
         price: "PKR 2000",
-        image: "/g1.jpg", // Replace with actual image path
+        image: "/g1.jpg",
       },
       {
         id: 2,
         name: "Cotton Printed 2 Piece Suit ",
         description: " Stylish and comfortable  cotton printed.",
         price: "PKR 2000",
-        image: "/g2.jpg", // Replace with actual image path
+        image: "/g2.jpg", 
       },
       {
         id: 3,
         name: " Cotton Printed 2 Piece Suit",
         description: " Stylish and comfortable  cotton printed",
         price: "PKR 2000",
-        image: "/g4.jpg", // Replace with actual image path
+        image: "/g4.jpg", 
       },
       {
         id: 4,
         name: "Cotton Printed 2 Piece Suit ",
         description: " Stylish and comfortable  cotton printed.",
         price: "PKR 2000",
-        image: "/g5.jpg", // Replace with actual image path
+        image: "/g5.jpg", 
       },
       {
         id: 5,
         name: "Womens Kurti ",
         description: " Stylish and comfortable kurti for women's.",
         price: "PKR 2000",
-        image: "/g6.jpg", // Replace with actual image path
+        image: "/g6.jpg",
       },
       {
         id: 6,
         name: "Womens Kurti ",
         description: " Stylish and comfortable kurti for women's.",
         price: "PKR 2000",
-        image: "/g7.jpg", // Replace with actual image path
+        image: "/g7.jpg",
       },
       {
         id: 7,
         name: "Womens Kurti ",
         description: " Stylish and comfortable kurti for women's.",
         price: "PKR 2000",
-        image: "/g8.jpg", // Replace with actual image path
+        image: "/g8.jpg", 
       },
       {
         id: 8,
         name: "Womens Kurti ",
         description: " Stylish and comfortable kurti for women's.",
         price: "PKR 2000",
-        image: "/g9.jpg", // Replace with actual image path
+        image: "/g9.jpg",
       },
 
 ]
@@ -105,7 +105,7 @@ const womenProduct= [
               className='bg-[#6b7a15] hover:scale-105
               duration-300 text-white py-1 px-4 rounded-full
               group-hover:bg-white group-hover:text-[#6b7a15] my-4
-              '>Add to Cart </button>
+              '>View Details </button>
                   </div>
                 </div></Link>
               ))}

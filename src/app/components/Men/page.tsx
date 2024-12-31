@@ -7,28 +7,28 @@ export default function MenWear() {
       name: "Men's Kurta",
       description: "Stylish and comfortable kurta for men.",
       price: "PKR 2000",
-      image: "/b9.jpg", // Replace with actual image path
+      image: "/b9.jpg", 
     },
     {
       id: 10,
       name: "Men's Stylish Kurta",
       description: "Stylish and comfortable kurta for men.",
       price: "PKR 3000",
-      image: "/b2.jpg", // Replace with actual image path
+      image: "/b2.jpg", 
     },
     {
         id:11,
         name: "Men's Kurta",
         description: "Stylish and comfortable kurta for men.",
         price: "PKR 2500",
-        image: "/b4.jpg", // Replace with actual image path
+        image: "/b4.jpg", 
       },
       {
         id: 12,
         name: "Men's Stylish Kurta",
         description: "Stylish and comfortable kurta for men.",
         price: "PKR 3500",
-        image: "/b6.jpg", // Replace with actual image path
+        image: "/b6.jpg", 
       },
 
       {
@@ -36,28 +36,28 @@ export default function MenWear() {
         name: "Men's T-Shirt",
         description: "Trendy and comfortable t-shirt for men",
         price: "PKR 1500",
-        image: "/T1.jpg", // Replace with actual image path
+        image: "/T1.jpg", 
       },
       {
         id: 14,
         name: "Men's T-Shirt",
         description: "Trendy and comfortable t-shirt for men",
         price: "PKR 1200",
-        image: "/T2.jpg", // Replace with actual image path
+        image: "/T2.jpg", 
       },
       {
         id: 15,
         name: "Men's Printed T-Shirt",
         description: "Trendy and comfortable shirt for men",
         price: "PKR 1500",
-        image: "/T4.jpg", // Replace with actual image path
+        image: "/T4.jpg", 
       },
       {
         id: 16,
         name: "Men's T-Shirt",
         description: "Trendy and comfortable shirt for men",
         price: "PKR 1200",
-        image: "/T3.jpg", // Replace with actual image path
+        image: "/T3.jpg", 
       },
   ];
 
@@ -98,7 +98,7 @@ export default function MenWear() {
           className='bg-[#6b7a15] hover:scale-105
           duration-300 text-white py-1 px-4 rounded-full
           group-hover:bg-white group-hover:text-[#6b7a15] my-4
-          '>Add to Cart </button>
+          '>View Details  </button>
               </div>
             </div></Link>
           ))}

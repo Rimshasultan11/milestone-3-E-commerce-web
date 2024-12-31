@@ -3,22 +3,26 @@ import Image from 'next/image'
 import kids from '/public/kids.jpg'
 import b5 from '/public/b5.jpg'
 import g3 from '/public/g3.jpg'
+import Link from 'next/link'
 const produtList =[
 
   {
     id:1,
   img:kids,
   title:"Kids Wear",
+  Link:"/components/kids/kids-boys",
   },
   {
     id:2,
   img:b5,
   title:"Men's Wear",
+  Link:"/components/Men",
   },
   {
     id:3,
   img:g3,
   title:"Women's Wear",
+  Link:"/components/Women",
   },
 
 
@@ -42,7 +46,7 @@ const Newpro = () => {
               {/* text div */}
               <div className='text-center py-4 leading-10 text-lg'>
                 <h1 className='text-xl'>{data.title}</h1>
-                <p>Shop Now</p>
+                <Link href={data.Link}><p>Shop Now</p></Link>
               </div>
             </div>))}
         

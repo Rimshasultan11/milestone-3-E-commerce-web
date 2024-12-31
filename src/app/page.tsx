@@ -1,4 +1,4 @@
-import Image from "next/image";
+import React from "react";
 import Hero from "./components/Home/Hero";
 import Products from "./components/Home/Products";
 import TopProduct from "./components/Home/TopProduct";
@@ -18,7 +18,7 @@ export default function Home() {
     <Subscribe/>
     <Newpro/>
    
-
+    
     </div>
   
   );

@@ -1,6 +1,9 @@
+
+
 import React from 'react'
 
-const page = () => {
+const useCart = () => {
+  
   return (
     <div>
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-10">
@@ -27,6 +30,7 @@ const page = () => {
         <button type="submit" className="bg-[#6b7a15] text-white py-2 px-6 rounded-full ">Send Message</button>
       </div>
     </form>
+
   </div>
 </div>
 
@@ -34,4 +38,4 @@ const page = () => {
   )
 }
 
-export default page
+export default useCart

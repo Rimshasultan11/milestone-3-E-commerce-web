@@ -102,7 +102,7 @@ const page = () => {
                       className='bg-[#6b7a15] hover:scale-105
                         duration-300 text-white py-1 px-4 rounded-full
                         group-hover:bg-white group-hover:text-[#6b7a15] my-4
-                        '>Add to Cart </button>
+                        '>View Details  </button>
                   </div>
                 </div></Link>
             ))}
